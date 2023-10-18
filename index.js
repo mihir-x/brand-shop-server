@@ -54,6 +54,12 @@ async function run() {
             const result = await cursor.toArray()
             res.send(result)
         })
+        //post products to database
+        app.post('/products', async(req, res) =>{
+            const products = req.body
+            const result = await productCollection.insertOne(products)
+            res.send(result)
+        })
 
 
 
