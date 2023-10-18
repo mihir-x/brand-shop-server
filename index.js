@@ -31,12 +31,12 @@ async function run() {
         const productCollection = client.db('brandShopDB').collection('products')
         const userCollection = client.db('brandShopDB').collection('users')
 
-        //user related api
+        //user related api ---------------------------------------------------------------
         //get users data from database
         app.get('/users', async(req, res) =>{
             const cursor = userCollection.find()
-            const users = await cursor.toArray()
-            res.send(users)
+            const result = await cursor.toArray()
+            res.send(result)
         })
         //post users to database
         app.post('/users', async(req, res) =>{
@@ -44,6 +44,18 @@ async function run() {
             const result = await userCollection.insertOne(users)
             res.send(result)
         })
+
+
+
+        //products related api ------------------------------------------------------------
+        //get product data from database
+        app.get('/products', async(req, res) =>{
+            const cursor = productCollection.find()
+            const result = await cursor.toArray()
+            res.send(result)
+        })
+
+
 
         // Send a ping to confirm a successful connection
         await client.db("admin").command({ ping: 1 });
