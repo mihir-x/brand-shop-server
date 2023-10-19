@@ -45,6 +45,15 @@ async function run() {
             const result = await addedCollection.insertOne(cart)
             res.send(result)
         })
+        //get specific cart item
+        app.get('/added/:id', async(req, res) =>{
+            const id = req.params.id
+            const query = {
+                _id: new ObjectId(id),
+            }
+            const result = await addedCollection.findOne(query)
+            res.send(result)
+        })
         
 
         //user related api ---------------------------------------------------------------
