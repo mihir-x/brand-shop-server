@@ -69,6 +69,36 @@ async function run() {
             const result = await productCollection.findOne(query)
             res.send(result)
         })
+        //get specific products for updating from database
+        app.get('/:id', async(req, res) =>{
+            const id = req.params.id
+            const query = {
+                _id: new ObjectId(id),
+            }
+            const result = await productCollection.findOne(query)
+            res.send(result)
+        })
+        //update the specific product in database
+        app.put('/:id', async(req, res) =>{
+            const id = req.params.id
+            const data = req.body
+            const query = {
+                _id: new ObjectId(id),
+            }
+            const options = {upsert:true}
+            const updatedProduct = {
+                $set: {
+                    name: data.name,
+                    brand: data.brand,
+                    type: data.type,
+                    price: data.price,
+                    image: data.image,
+                    rating: data.rating
+                }
+            }
+            const result = await productCollection.updateOne(query, updatedProduct, options)
+            res.send(result)
+        })
 
 
 
