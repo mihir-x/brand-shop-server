@@ -54,6 +54,15 @@ async function run() {
             const result = await addedCollection.findOne(query)
             res.send(result)
         })
+        //delete cart item from database
+        app.delete('/added/:id', async(req, res) =>{
+            const id = req.params.id 
+            const query = {
+                _id: new ObjectId(id),
+            }
+            const result = await addedCollection.deleteOne(query)
+            res.send(result)
+        })
         
 
         //user related api ---------------------------------------------------------------
